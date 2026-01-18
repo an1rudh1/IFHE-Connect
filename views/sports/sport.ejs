@@ -1,0 +1,95 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Listing of sports -->
+<h2 class="mb-3 mt-5">Sports Listings</h2>
+
+<div class="container">
+  <!-- Add new button only for users logged in -->
+  <% if (currentUser) { %>
+  <div class="mb-4">
+    <a href="/sports/new" class="btn btn-success">+ Add New Sport</a>
+
+    <!-- Button to show form -->
+    <button
+      class="btn btn-secondary my-3"
+      onclick="document.getElementById('dateForm').style.display='block'"
+    >
+      + Add a Date to Get Notified
+    </button>
+
+    <!-- Hidden Form -->
+    <div id="dateForm" style="display: none" class="mb-4">
+      <form action="/notify-date" method="POST">
+        <label for="date" class="form-label"
+          >Select a date for notifications:</label
+        >
+        <input
+          type="date"
+          id="date"
+          name="date"
+          class="form-control"
+          required
+        />
+        <button type="submit" class="btn btn-success mt-2">Submit</button>
+      </form>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- No listing found -->
+  <% if (sports.length === 0) { %>
+  <span class="noListing">No sports listings found.</span>
+  <% } else { %>
+  <div class="row">
+    <% for (let s of sports) { %>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= s.sportType %></h5>
+          <p class="card-text">
+            <strong>Location:</strong> <strong><%= s.location %></strong>
+          </p>
+
+          <% const formattedDateTime = new Date(s.time).toLocaleString("en-IN",
+          { dateStyle: "medium", timeStyle: "short" }); %>
+          <p><strong>Date & Time:</strong> <%= formattedDateTime %></p>
+
+          <% if (s.user) { %>
+          <p>Posted by: <strong><%= s.user.name %></strong></p>
+          <% } %>
+
+          <p class="text">
+            <small>Posted on: <%= s.createdAt.toLocaleString() %></small>
+          </p>
+
+          <!-- Only logged in user can see this -->
+          <% if (currentUser && String(s.user) === String(currentUser)) { %>
+            
+          <!-- Edit Button -->
+          <a
+            href="/sports/<%= s._id %>/edit"
+            class="btn btn-sm btn-primary me-2"
+            >Edit</a
+          >
+
+          <!-- Delete Button -->
+          <form
+            action="/sports/<%= s._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              class="btn btn-sm btn-danger"
+              onclick="return confirm('Are you sure you want to delete this listing?');"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>

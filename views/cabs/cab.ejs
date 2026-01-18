@@ -1,0 +1,93 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="mb-3 mt-5">Cab Pool Listings</h2>
+
+<div class="container">
+  <!-- Only show this if user is logged in -->
+  <% if (currentUser) { %>
+  <div class="mb-4">
+    <a href="/cabs/new" class="btn btn-success">+ Add New Cab Pool</a>
+    <!-- Button to show form -->
+<button class="btn btn-secondary my-3" onclick="document.getElementById('cabDateForm').style.display='block'">
+  + Add a Date to Get Notified for Cab Pools
+</button>
+
+<!-- Hidden Form -->
+<div id="cabDateForm" style="display: none;" class="mb-4">
+  <form action="/cab-notify-date" method="POST">
+    <label for="cabDate" class="form-label">Select a date for notifications:</label>
+    <input type="date" name="date" required />
+<input type="time" name="time" required />
+
+    <button type="submit" class="btn btn-success mt-2">Notify me</button>
+  </form>
+</div>
+
+  </div>
+  <% } %> <% if (cabs.length === 0) { %>
+  <span class="noListing">No cab pool listings found.</span>
+  <% } else { %>
+  <div class="row">
+    <% for (let c of cabs) { %>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <p class="card-cab">
+            <b>From:</b>
+            <b style="color: #da8d08"> <%= c.from %> </b>
+            &nbsp; <strong> --> </strong> &nbsp;
+            <b style="color: #da8d08"> <%= c.to %> </b>
+          </p>
+          <p class="card-text">
+            <% const formattedDateTime = new Date(c.time).toLocaleString("en-IN", {
+             dateStyle: "medium",
+              timeStyle: "short",
+              }); %>
+            <p><strong>Date & Time: </strong>  <%= c.date %> </strong> at  <%= c.time %> </p>
+
+          </p>
+          <p class="card-text">
+            <strong>Available Seats:</strong>
+            <Strong> <%= c.availableSeats %> </Strong>
+          </p>
+          <p class="card-text">
+            <strong>Contact:</strong> <strong><%= c.contactNumber %></strong>
+          </p>
+
+          <% if (c.user) { %>
+          <p class="text mb-1">Posted by: <strong><%= c.user.name %></strong></p>
+          <% } %>
+
+          <p class="text">
+            <small>Posted on: <%= c.createdAt.toLocaleString() %></small>
+          </p>
+          
+          <!-- Logic for edit and delete buttons -->
+          <% if (currentUser && String(c.user) === String(currentUser)) { %>
+            
+          <!-- Edit Button -->
+          <a href="/cabs/<%= c._id %>/edit" class="btn btn-sm btn-primary me-2"
+            >Edit</a
+          >
+
+          <!-- Delete Button -->
+          <form
+            action="/cabs/<%= c._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              class="btn btn-sm btn-danger"
+              onclick="return confirm('Are you sure you want to delete this listing?');"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favourite sport</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>Choose Your Favourite Sports</h2>
+      <form action="/favourites" method="POST">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Cricket"
+            id="cricket"
+          />
+          <label class="form-check-label" for="cricket">Cricket</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Football"
+            id="football"
+          />
+          <label class="form-check-label" for="football">Football</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Basketball"
+            id="basketball"
+          />
+          <label class="form-check-label" for="basketball">Basketball</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="LawnTennis"
+            id="lawntennis"
+          />
+          <label class="form-check-label" for="lawntennis">LawnTennis</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="TableTennis"
+            id="tabletennis"
+          />
+          <label class="form-check-label" for="tabletennis">Table tennis</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Volleyball"
+            id="volleyball"
+          />
+          <label class="form-check-label" for="volleyball">Volleyball</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Badminton"
+            id="badminton"
+          />
+          <label class="form-check-label" for="badminton">Badminton</label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="favourites[]"
+            value="Swimming"
+            id="swimming"
+          />
+          <label class="form-check-label" for="swimming">Swimming</label>
+        </div>
+        <button type="submit" class="btn-fav mt-3">Save Favourites</button>
+      </form>
+    </div>
+  </body>
+</html>

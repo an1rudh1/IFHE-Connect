@@ -1,0 +1,60 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h2>Edit Cab Pool Listing</h2>
+  <form action="/cabs/<%= cab._id %>?_method=PUT" method="POST">
+    <div class="mb-3">
+      <label>From</label>
+      <input
+        type="text"
+        name="from"
+        class="form-control"
+        value="<%= cab.from %>"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label>To</label>
+      <input
+        type="text"
+        name="to"
+        class="form-control"
+        value="<%= cab.to %>"
+        required
+      />
+    </div>
+    <!-- Date and time -->
+    <div class="mb-3">
+      <label for="time">Time:</label>
+      <input
+        type="datetime-local"
+        name="time"
+        id="time"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label>Available Seats</label>
+      <input
+        type="number"
+        name="availableSeats"
+        class="form-control"
+        value="<%= cab.availableSeats %>"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label>Contact Number</label>
+      <input
+        type="text"
+        name="contactNumber"
+        class="form-control"
+        value="<%= cab.contactNumber %>"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="/cabs" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>

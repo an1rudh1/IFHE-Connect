@@ -1,0 +1,69 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-4">
+  <h2>Edit Buy & Sell Listing</h2>
+
+  <form
+    action="/buy-sell/<%= listing._id %>?_method=PUT"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label>Title:</label>
+      <input
+        type="text"
+        name="title"
+        class="form-control"
+        value="<%= listing.title %>"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea name="description" class="form-control" required>
+<%= listing.description %></textarea
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Price:</label>
+      <input
+        type="number"
+        name="price"
+        class="form-control"
+        value="<%= listing.price %>"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Category:</label>
+      <input
+        type="text"
+        name="category"
+        class="form-control"
+        value="<%= listing.category %>"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Contact:</label>
+      <input
+        type="text"
+        name="contact"
+        class="form-control"
+        value="<%= listing.contact %>"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Upload New Images (optional):</label>
+      <input type="file" name="images" multiple class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>

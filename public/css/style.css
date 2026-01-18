@@ -1,0 +1,61 @@
+/* Navbar */
+.navbar {
+  background-color: white;
+}
+
+/* Hovering nav bar */
+.nav-link:hover {
+  color: #0e0701 !important;
+}
+
+/* Div head section */
+.hero-section {
+  text-align: center;
+  color: rgb(44, 43, 43);
+}
+
+/* Font size - under heading */
+.hero-subtitle {
+  padding: 2px;
+  font-size: 1.35rem;
+}
+
+/* No Listing styling */
+.noListing {
+  display: flex;
+  width: fit-content;
+  background-color: rgb(251, 220, 213);
+}
+/* Event No listing */
+.eventsDiv {
+  margin-bottom: 30px;
+}
+
+/* Card display */
+.card {
+  background-color: rgb(215, 225, 227) !important;
+}
+
+.card-title {
+  margin-bottom: 20px !important;
+}
+
+.card-event {
+  margin-bottom: 0px;
+}
+
+/* Favorite Form Page */
+
+.form-check {
+  margin: 10px !important;
+  padding: 5px;
+  font-size: 20px;
+}
+.btn-fav {
+  width: 80px;
+  height: 40px;
+  margin-left: 10px;
+  background-color: rgb(25, 135, 84, 1);
+  border-radius: 5px;
+  color: white;
+}

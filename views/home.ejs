@@ -1,0 +1,213 @@
+<% layout('layouts/boilerplate') %>
+
+  <!-- Show listings -->
+
+<div class="hero-section">
+  <div class="container">
+    <% if (success.length) { %>
+    <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    <h1 class="hero-title">Welcome to IFHE-Connect</h1>
+    <p class="hero-subtitle">
+      Connect with our campus community through <strong>cabpools, sports and Buy & Sell </strong>
+    </p>
+  </div>
+</div>
+
+<!-- Sports listing -->
+<h2 class="mb-3">Sports Listings</h2>
+
+<div class="container">
+  <% if (sports.length === 0) { %>
+  <span class="noListing">No sports listings found.</span>
+  <% } else { %>
+  <div class="row">
+    <% for (let s of sports) { %>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= s.sportType %></h5>
+          <p class="card-text">
+            <strong>Location:</strong> <strong><%= s.location %></strong>
+          </p>
+          <!-- Date and time -->
+          <p class="card-text">
+            <% const formattedDateTime = new Date(s.time).toLocaleString("en-IN", {
+             dateStyle: "medium",
+              timeStyle: "short",
+              }); %>
+            <p><strong>Date & Time:</strong> <%= formattedDateTime %></p>
+          </p>
+
+          <% if (s.user) { %>
+          <p>Posted by: <strong><%= s.user.name %></strong></p>
+          <% } %>
+
+          <p class="text">
+            <small>Posted on: <%= s.createdAt.toLocaleString() %></small>
+          </p>
+
+          <!-- Only logged in user can see this -->
+          <% if (currentUser && String(s.user) === String(currentUser)) { %>
+          <!-- Edit Button -->
+          <a
+            href="/sports/<%= s._id %>/edit"
+            class="btn btn-sm btn-primary me-2"
+            >Edit</a
+          >
+
+          <!-- Delete Button -->
+          <form
+            action="/sports/<%= s._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              class="btn btn-sm btn-danger"
+              onclick="return confirm('Are you sure you want to delete this listing?');"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+
+<!-- Cab Pooling -->
+
+<h2 class="mb-3 mt-5">Cab Pool Listings</h2>
+
+<div class="container">
+  <% if (cabs.length === 0) { %>
+  <span class="noListing">No cab pool listings found.</span>
+  <% } else { %>
+  <div class="row">
+    <% for (let c of cabs) { %>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <p class="card-cab">
+            <b>From:</b>
+            <b style="color: #da8d08"> <%= c.from %> </b>
+            &nbsp; <strong> --> </strong> &nbsp;
+            <b style="color: #da8d08"> <%= c.to %> </b>
+          </p>
+          
+          <!-- Date and time -->
+          <p class="card-text">
+            <% const formattedDateTime = new Date(c.time).toLocaleString("en-IN", {
+             dateStyle: "medium",
+              timeStyle: "short",
+              }); %>
+            <p><strong>Date & Time: </strong>  <%= c.date %> </strong> at  <%= c.time %> </p>
+          </p>
+
+          <!-- Available seats -->
+          <p class="card-text">
+            <strong>Available Seats:</strong>
+            <Strong> <%= c.availableSeats %> </Strong>
+          </p>
+          <p class="card-text">
+            <strong>Contact:</strong> <strong><%= c.contactNumber %></strong>
+          </p>
+
+           <% if (c.user) { %>
+          <p class="text mb-1">Posted by: <strong><%= c.user.name %></strong></p>
+          <% } %>
+
+          <p class="text mb-1">
+            <small>Posted on: <%= c.createdAt.toLocaleString() %></small>
+          </p>
+
+          <!-- Logic for edit and delete buttons -->
+          <% if (currentUser && String(c.user) === String(currentUser)) { %>
+          <!-- Edit Button -->
+          <a href="/cabs/<%= c._id %>/edit" class="btn btn-sm btn-primary me-2"
+            >Edit</a
+          >
+
+          <!-- Delete Button -->
+          <form
+            action="/cabs/<%= c._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              class="btn btn-sm btn-danger"
+              onclick="return confirm('Are you sure you want to delete this listing?');"
+            >
+              Delete
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+
+
+
+<!-- Buy & Sell -->
+<h2 class="mb-3 mt-5">Buy & Sell Listings</h2>
+
+<div class="container">
+  <% if (buySell.length === 0) { %>
+    <span class="noListing">No Buy & Sell listings found.</span>
+  <% } else { %>
+    <div class="row">
+      <% buySell.forEach(listing => { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm" style="width: 18rem">
+            <% if (listing.images && listing.images.length > 0) { %>
+              <img src="<%= listing.images[0] %>" class="card-img-top" alt="Product Image" />
+            <% } else { %>
+              <img src="/default-placeholder.png" class="card-img-top" alt="No Image" />
+            <% } %>
+
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="card-text mb-1">
+            <strong>Description:</strong><%= listing.description %>
+          </p>
+              <p class="card-text mb-1"><strong>Price:</strong> ₹<%= listing.price %></p>
+              <p class="card-text mb-1"><strong>Category:</strong> <%= listing.category %></p>
+              <p class="card-text mb-1"><strong>Contact:</strong> <%= listing.contact %></p>
+       
+              <!-- Posted by -->
+          <% if (listing.user) { %>
+          <p class="text mb-1">Posted by: <strong> <%= listing.user ? listing.user.name || listing.user.email : "Unknown" %> </strong></p>
+
+          <% } %>
+
+          <!-- Posted on -->
+          <p class="text mb-1">
+            <small>Posted on: <%= listing.createdAt.toLocaleString()%></small>
+          </p>
+              <p class="text">
+            
+          </p>
+
+              <% if (currentUser && listing.user && listing.user._id.toString() === currentUser._id.toString()) { %>
+
+                <div class="mt-auto">
+                  <a href="/buy-sell/<%= listing._id %>/edit" class="btn btn-sm btn-primary me-2">Edit</a>
+                  <form action="/buy-sell/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+</div>

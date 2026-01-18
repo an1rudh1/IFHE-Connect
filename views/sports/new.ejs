@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Add New Sport Listing</h2>
+
+  <form action="/sports" method="POST">
+    <div class="mb-3">
+      <label for="sportType" class="form-label">Sport Type</label>
+      <input
+        type="text"
+        class="form-control"
+        id="sportType"
+        name="sportType"
+        required
+      />
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input
+        type="text"
+        class="form-control"
+        id="location"
+        name="location"
+        required
+      />
+    </div>
+
+    <!--Date Time -->
+    <div class="mb-3">
+      <label for="time">Date:</label>
+      <input type="date" name="date" required />
+      <label>Time:</label>
+      <input type="time" name="time" required />
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <a href="/sports" class="btn btn-secondary">⬅ Back</a>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>
