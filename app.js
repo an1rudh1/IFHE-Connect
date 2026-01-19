@@ -161,7 +161,13 @@ app.get("/home", async (req, res) => {
   });
 });
 
-//  SERVER
-app.listen(3000, () => {
-  console.log("IFHE-Connect running on port 3000");
+// //  SERVER
+// app.listen(3000, () => {
+//   console.log("IFHE-Connect running on port 3000");
+// });
+
+// For deployment
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
