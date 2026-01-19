@@ -1,6 +1,6 @@
 require("dotenv").config();
-console.log("MONGO_URI =", process.env.MONGO_URI);
-console.log("GOOGLE CLIENT ID =", process.env.GOOGLE_CLIENT_ID);
+// console.log("MONGO_URI =", process.env.MONGO_URI);
+// console.log("GOOGLE CLIENT ID =", process.env.GOOGLE_CLIENT_ID);
 
 const express = require("express");
 const app = express();
@@ -42,11 +42,11 @@ const store = MongoStore.create({
   },
 });
 
-// Temp
+// // Temp
 
-console.log("Client ID:", process.env.GOOGLE_CLIENT_ID);
-console.log("EMAIL_USER =", process.env.EMAIL_USER);
-console.log("EMAIL_PASS exists =", !!process.env.EMAIL_PASS);
+// console.log("Client ID:", process.env.GOOGLE_CLIENT_ID);
+// console.log("EMAIL_USER =", process.env.EMAIL_USER);
+// console.log("EMAIL_PASS exists =", !!process.env.EMAIL_PASS);
 
 app.use(
   session({
