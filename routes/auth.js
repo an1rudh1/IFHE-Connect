@@ -23,7 +23,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/notAllowed",
+    failureRedirect: "/auth/notAllowed",
   }),
   (req, res) => {
     res.redirect("/home");
@@ -36,7 +36,7 @@ router.get("/notAllowed", (req, res) => {
   res.render("notAllowed");
 });
 
-router.get("/unauthorised", (req, res) => {
+router.get("/auth/unauthorised", (req, res) => {
   res.render("unauthorised", {
     message: "Only CSE department users are allowed",
   });
