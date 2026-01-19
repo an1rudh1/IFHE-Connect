@@ -50,9 +50,11 @@
             <strong>Location:</strong> <strong><%= s.location %></strong>
           </p>
 
-          <% const formattedDateTime = new Date(s.time).toLocaleString("en-IN",
-          { dateStyle: "medium", timeStyle: "short" }); %>
-          <p><strong>Date & Time:</strong> <%= formattedDateTime %></p>
+          <p>
+  <strong>Date & Time:</strong>
+  <%= s.date %> at <%= s.time %>
+</p>
+
 
           <% if (s.user) { %>
           <p>Posted by: <strong><%= s.user.name %></strong></p>
